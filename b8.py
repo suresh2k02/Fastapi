@@ -1,6 +1,9 @@
 from typing import Optional
+
 from fastapi import FastAPI
 from pydantic import BaseModel
+
+app = FastAPI()
 
 
 class Item(BaseModel):
@@ -8,14 +11,10 @@ class Item(BaseModel):
     description: Optional[str] = None
     price: float
     tax: Optional[float] = None
-
-
-app = FastAPI()
+    tags: list = ["j","k"]
 
 
 @app.put("/items/{item_id}")
-async def create_item(item_id: int, item: Item, q: Optional[str] = None):
-    result = {"item_id": item_id, **item.dict()}
-    if q:
-        result.update({"q": q})
-    return result
+async def update_item(item_id: int, item: Item):
+    results = {"item_id": item_id, "item": item}
+    return results
