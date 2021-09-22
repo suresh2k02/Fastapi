@@ -1,0 +1,50 @@
+Path()
+Query()
+Header()
+Cookie()
+Body()
+Form()
+File()
+
+
+
+#These "type hints" are a special syntax that allow declaring the type of a variable.
+Converts the first letter of each one to upper case with title().
+
+#Generic types with type parameters¶
+""" There are some data structures that can contain other values, like dict, list, 
+set and tuple. And the internal values can have their own type too.
+
+example, let's define a variable to be a list of str. """
+
+""" From typing, import List (with a capital L): """
+
+""" from typing import List
+
+
+def process_items(items: List[str]):
+    for item in items:
+        print(item) """
+
+
+Predefined values¶
+
+If you have a path operation that receives a path parameter, but you want the possible valid path 
+parameter values to be predefined, you can use a standard Python Enum.
+Create an Enum class¶
+
+Import Enum and create a sub-class that inherits from str and from Enum.
+
+By inheriting from str the API docs will be able to know that the values must be of 
+type string and will be able to render correctly.
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
+
+
+@app.get("/items/")
+async def read_item(skip: int = 0, limit: int = 10):
+    return fake_items_db[skip : skip + limit]
